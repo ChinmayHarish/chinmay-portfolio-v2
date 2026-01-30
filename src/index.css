@@ -28,8 +28,9 @@ h4,
 h5,
 h6 {
   font-family: var(--font-display);
-  letter-spacing: -0.02em;
-  /* Tight tracking for "locked-in" look */
+  letter-spacing: -0.04em !important;
+  /* ULTRA Tight for "Poster" look */
+  text-transform: uppercase;
 }
 
 /* Cinematic Vignette & Glow */
@@ -77,4 +78,26 @@ h6 {
   background: rgba(59, 130, 246, 0.3);
   /* Blue selection */
   color: white;
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }

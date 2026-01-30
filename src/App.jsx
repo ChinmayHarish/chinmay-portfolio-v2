@@ -1,7 +1,10 @@
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import Lenis from 'lenis';
 import Navbar from './components/Navbar';
 import Contact from './components/Contact';
+import Noise from './components/Noise';
 import Home from './pages/Home';
 import Work from './pages/Work';
 import About from './pages/About';
@@ -22,9 +25,32 @@ function AnimatedRoutes() {
 }
 
 function App() {
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => lenis.destroy();
+  }, []);
+
   return (
     <Router>
       <div className="min-h-screen relative bg-black selection:bg-blue-500/30 selection:text-blue-100">
+        <Noise />
         {/* Cinematic Vignette */}
         <div className="bg-cinematic" />
 
