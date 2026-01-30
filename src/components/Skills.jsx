@@ -1,4 +1,6 @@
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 const skills = [
     "Product Strategy", "user-centric design", "sql", "a/b testing",
@@ -7,32 +9,41 @@ const skills = [
 ];
 
 export default function Skills() {
+    const containerRef = useRef(null);
+
+    useGSAP(() => {
+        gsap.from('.skill-tag', {
+            scrollTrigger: {
+                trigger: containerRef.current,
+                start: 'top 85%',
+            },
+            y: 50,
+            opacity: 0,
+            stagger: {
+                amount: 0.5,
+                from: "random"
+            },
+            duration: 1,
+            ease: 'back.out(1.7)',
+        });
+    }, { scope: containerRef });
+
     return (
-        <section id="skills" className="py-24 px-6 max-w-4xl mx-auto text-center">
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="mb-12"
-            >
-                <h2 className="text-3xl font-bold bg-gradient-to-r from-white to-zinc-500 bg-clip-text text-transparent mb-4">
+        <section ref={containerRef} id="skills" className="py-32 px-6 max-w-5xl mx-auto text-center">
+            <div className="mb-16">
+                <h2 className="text-3xl font-bold text-zinc-400 mb-4">
                     Capabilities
                 </h2>
-                <p className="text-zinc-500">Tools and methodologies I use to drive impact.</p>
-            </motion.div>
+            </div>
 
-            <div className="flex flex-wrap justify-center gap-2">
+            <div className="flex flex-wrap justify-center gap-3">
                 {skills.map((skill, i) => (
-                    <motion.span
+                    <span
                         key={skill}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: i * 0.05 }}
-                        className="px-4 py-2 rounded-lg bg-zinc-900 border border-white/5 text-zinc-400 text-sm hover:text-white hover:border-white/20 transition-all cursor-default uppercase tracking-wider"
+                        className="skill-tag px-6 py-3 rounded-full bg-zinc-900/50 border border-white/5 text-zinc-400 text-sm md:text-base hover:text-white hover:border-white/20 hover:bg-zinc-800 transition-all cursor-default uppercase tracking-widest"
                     >
                         {skill}
-                    </motion.span>
+                    </span>
                 ))}
             </div>
         </section>
