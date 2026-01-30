@@ -2,6 +2,7 @@
 
 @theme {
   --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Satoshi', 'Inter', system-ui, sans-serif;
   --color-background: #000000;
   --color-surface: #0a0a0a;
 }
@@ -17,6 +18,18 @@ body {
   color: white;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Global Typography Overrides */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  /* Tight tracking for "locked-in" look */
 }
 
 /* Cinematic Vignette & Glow */
