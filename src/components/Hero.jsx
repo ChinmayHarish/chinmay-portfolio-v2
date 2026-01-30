@@ -76,9 +76,8 @@ export default function Hero() {
             id="hero"
             className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 pt-20 overflow-hidden"
         >
-            {/* Background Ambience */}
-            <div className="absolute inset-0 bg-zinc-950 z-0" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-[100px] pointer-events-none" />
+            {/* Background Ambience handled by App.jsx */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[100px] pointer-events-none" />
 
             <div className="relative z-10 max-w-5xl flex flex-col items-center">
 

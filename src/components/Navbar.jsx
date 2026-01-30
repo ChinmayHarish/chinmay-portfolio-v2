@@ -1,79 +1,59 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { NavLink } from 'react-router-dom';
 import { cn } from '../lib/utils';
-import { FileText, Github, Linkedin, Mail } from 'lucide-react';
+import { motion } from 'framer-motion';
 
-const navLinks = [
-    { name: 'Experience', href: '#experience' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Skills', href: '#skills' },
+const links = [
+    { name: 'Work', path: '/work' },
+    { name: 'About', path: '/about' },
+    { name: 'Playground', path: '/playground' },
 ];
 
 export default function Navbar() {
-    const [isScrolled, setIsScrolled] = useState(false);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 20);
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
     return (
-        <motion.nav
-            initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="fixed top-6 left-0 right-0 z-50 flex justify-center px-6"
-        >
-            <div
-                className={cn(
-                    "flex items-center gap-6 px-6 py-3 rounded-full transition-all duration-300",
-                    isScrolled
-                        ? "bg-zinc-900/80 backdrop-blur-md border border-white/10 shadow-lg shadow-black/20"
-                        : "bg-transparent border border-transparent"
-                )}
-            >
-                <a href="#hero" className="text-zinc-100 font-semibold hover:text-white transition-colors">
-                    CH
-                </a>
+        <nav className="fixed top-0 left-0 right-0 z-50 glass h-16 flex items-center">
+            <div className="w-full max-w-7xl mx-auto px-6 flex justify-between items-center">
+                {/* Logo */}
+                <NavLink
+                    to="/"
+                    className="text-lg font-bold tracking-tight hover:text-blue-400 transition-colors"
+                >
+                    CHINMAY . H
+                </NavLink>
 
-                <div className="w-px h-4 bg-white/10 mx-2" />
-
-                <div className="flex items-center gap-6">
-                    {navLinks.map((link) => (
-                        <a
+                {/* Desktop Links */}
+                <div className="flex items-center gap-8">
+                    {links.map((link) => (
+                        <NavLink
                             key={link.name}
-                            href={link.href}
-                            className="text-sm font-medium text-zinc-400 hover:text-white transition-colors"
+                            to={link.path}
+                            className={({ isActive }) => cn(
+                                "text-sm font-medium transition-colors hover:text-white relative py-1",
+                                isActive ? "text-white" : "text-zinc-500"
+                            )}
                         >
-                            {link.name}
-                        </a>
+                            {({ isActive }) => (
+                                <>
+                                    {link.name}
+                                    {isActive && (
+                                        <motion.div
+                                            layoutId="navIndicator"
+                                            className="absolute -bottom-[1px] left-0 right-0 h-[1px] bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]"
+                                        />
+                                    )}
+                                </>
+                            )}
+                        </NavLink>
                     ))}
-                </div>
 
-                <div className="w-px h-4 bg-white/10 mx-2" />
-
-                <div className="flex items-center gap-4">
                     <a
-                        href="https://github.com/ChinmayHarish"
+                        href="/resume.pdf"
                         target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-zinc-400 hover:text-white transition-colors"
+                        className="hidden md:inline-flex text-xs font-mono px-3 py-1.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition-all"
                     >
-                        <Github className="w-4 h-4" />
-                    </a>
-                    <a
-                        href="https://linkedin.com/in/chinmayharish"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-zinc-400 hover:text-white transition-colors"
-                    >
-                        <Linkedin className="w-4 h-4" />
+                        RESUME
                     </a>
                 </div>
             </div>
-        </motion.nav>
+        </nav>
     );
 }
