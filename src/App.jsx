@@ -7,9 +7,13 @@ import Contact from './components/Contact';
 
 function App() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: 'var(--color-background)' }}>
+    <div className="min-h-screen relative selection:bg-white/20 selection:text-white">
+      {/* Noise Overlay */}
+      <div className="bg-noise" />
+
       <Navbar />
-      <main>
+
+      <main className="relative z-10">
         <Hero />
         <Experience />
         <Projects />

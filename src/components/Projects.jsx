@@ -1,191 +1,94 @@
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
+import { cn } from '../lib/utils';
 
 const projects = [
     {
-        title: 'Analytics Dashboard Platform',
-        description: 'Led the development of an internal analytics platform that consolidated multiple data sources into a unified dashboard, enabling real-time decision-making for executives.',
-        impact: 'Reduced reporting time by 60%',
-        role: 'Product Manager',
-        tags: ['Product Strategy', 'Data Analytics', 'SQL', 'Stakeholder Management'],
-        image: '/images/project-analytics.jpg',
-        color: '#2563EB',
+        title: 'Analytics Platform',
+        desc: 'Consolidated data sources for real-time executive decision making.',
+        tags: ['Strategy', 'SQL'],
+        className: 'md:col-span-2',
+        image: '/images/project-analytics.jpg'
     },
     {
-        title: 'User Onboarding Redesign',
-        description: 'Conducted user research and redesigned the onboarding flow to reduce friction and improve first-time user experience.',
-        impact: '25% increase in completion rate',
-        role: 'Product Lead',
-        tags: ['User Research', 'UX Design', 'A/B Testing', 'Metrics'],
-        image: '/images/project-onboarding.jpg',
-        color: '#059669',
+        title: 'Onboarding Flow',
+        desc: 'Redesigned user journey increasing completion by 25%.',
+        tags: ['UX', 'Growth'],
+        className: 'md:col-span-1',
+        image: '/images/project-onboarding.jpg'
     },
     {
-        title: 'Feature Prioritization Framework',
-        description: 'Implemented RICE prioritization framework to systematically evaluate and rank feature requests, improving roadmap clarity.',
-        impact: 'Aligned 3 teams on roadmap',
-        role: 'PM Process',
-        tags: ['RICE Framework', 'Roadmapping', 'Stakeholder Alignment'],
-        image: '/images/project-rice.jpg',
-        color: '#7C3AED',
+        title: 'RICE Framework',
+        desc: 'Systematic feature prioritization for cross-functional teams.',
+        tags: ['Process', 'Roadmap'],
+        className: 'md:col-span-1',
+        image: '/images/project-rice.jpg'
     },
     {
-        title: 'Customer Feedback Loop',
-        description: 'Built a systematic customer feedback collection and analysis process, turning qualitative insights into actionable product improvements.',
-        impact: '50+ user interviews conducted',
-        role: 'Discovery Lead',
-        tags: ['User Research', 'Customer Discovery', 'Data Synthesis'],
-        image: '/images/project-feedback.jpg',
-        color: '#DC2626',
+        title: 'Customer Feedback',
+        desc: 'Automated feedback loop to capture user insights at scale.',
+        tags: ['Discovery', 'Automation'],
+        className: 'md:col-span-2',
+        image: '/images/project-feedback.jpg'
     },
 ];
 
-const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.15,
-        },
-    },
-};
-
-const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0 },
-};
-
 export default function Projects() {
     return (
-        <section
-            id="projects"
-            className="py-24 md:py-32"
-            style={{ backgroundColor: 'var(--color-background)' }}
-        >
-            <div className="max-w-6xl mx-auto px-6">
-                {/* Section Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="mb-16"
-                >
-                    <p
-                        className="text-sm font-medium tracking-widest uppercase mb-4"
-                        style={{ color: 'var(--color-accent)' }}
-                    >
-                        Projects
-                    </p>
-                    <h2
-                        className="text-4xl md:text-5xl font-bold mb-4"
-                        style={{
-                            fontFamily: 'var(--font-display)',
-                            color: 'var(--color-primary)'
-                        }}
-                    >
-                        Products I've Shaped
-                    </h2>
-                    <p
-                        className="text-lg max-w-2xl"
-                        style={{ color: 'var(--color-secondary)' }}
-                    >
-                        From 0→1 launches to optimization projects, here's the work that demonstrates my product thinking.
-                    </p>
-                </motion.div>
+        <section id="projects" className="py-24 px-6 max-w-6xl mx-auto">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="mb-12"
+            >
+                <h2 className="text-3xl font-bold bg-gradient-to-r from-white to-zinc-500 bg-clip-text text-transparent">
+                    Selected Work
+                </h2>
+            </motion.div>
 
-                {/* Project Grid */}
-                <motion.div
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    className="grid md:grid-cols-2 gap-8"
-                >
-                    {projects.map((project, index) => (
-                        <motion.article
-                            key={project.title}
-                            variants={cardVariants}
-                            className="group relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-2"
-                            style={{
-                                backgroundColor: 'var(--color-surface)',
-                                border: '1px solid var(--color-border)'
-                            }}
-                        >
-                            {/* Color Accent Bar */}
-                            <div
-                                className="h-1 w-full"
-                                style={{ backgroundColor: project.color }}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {projects.map((project, i) => (
+                    <motion.div
+                        key={i}
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.1 }}
+                        className={cn(
+                            "group relative overflow-hidden rounded-xl border border-white/10 bg-zinc-900/50 hover:bg-zinc-800/50 transition-colors",
+                            project.className,
+                            "aspect-[16/9] md:aspect-auto md:h-80"
+                        )}
+                    >
+                        {/* Background Image with Overlay */}
+                        <div className="absolute inset-0 z-0">
+                            <img
+                                src={project.image}
+                                alt={project.title}
+                                className="w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity duration-500 group-hover:scale-105 transform"
                             />
+                            <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/50 to-transparent" />
+                        </div>
 
-                            {/* Content */}
-                            <div className="p-6 md:p-8">
-                                {/* Role Badge */}
-                                <span
-                                    className="inline-block px-3 py-1 text-xs font-medium rounded-full mb-4"
-                                    style={{
-                                        backgroundColor: `${project.color}15`,
-                                        color: project.color
-                                    }}
-                                >
-                                    {project.role}
-                                </span>
-
-                                {/* Title */}
-                                <h3
-                                    className="text-xl md:text-2xl font-bold mb-3 group-hover:text-opacity-80 transition-colors"
-                                    style={{
-                                        fontFamily: 'var(--font-display)',
-                                        color: 'var(--color-primary)'
-                                    }}
-                                >
-                                    {project.title}
-                                    <ArrowUpRight
-                                        className="inline-block w-5 h-5 ml-2 opacity-0 group-hover:opacity-100 transition-opacity"
-                                        style={{ color: project.color }}
-                                    />
-                                </h3>
-
-                                {/* Description */}
-                                <p
-                                    className="mb-4 leading-relaxed"
-                                    style={{ color: 'var(--color-secondary)' }}
-                                >
-                                    {project.description}
-                                </p>
-
-                                {/* Impact */}
-                                <div
-                                    className="inline-flex items-center gap-2 px-3 py-2 rounded-lg mb-6"
-                                    style={{ backgroundColor: 'var(--color-background)' }}
-                                >
-                                    <span className="text-lg">📈</span>
-                                    <span
-                                        className="text-sm font-semibold"
-                                        style={{ color: project.color }}
-                                    >
-                                        {project.impact}
-                                    </span>
+                        <div className="relative z-10 h-full flex flex-col justify-end p-6">
+                            <div className="transform transition-transform duration-300 group-hover:-translate-y-2">
+                                <div className="flex items-center gap-2 mb-2">
+                                    <h3 className="text-xl font-bold text-white">{project.title}</h3>
+                                    <ArrowUpRight className="w-4 h-4 text-zinc-400 opacity-0 group-hover:opacity-100 transition-opacity" />
                                 </div>
-
-                                {/* Tags */}
-                                <div className="flex flex-wrap gap-2">
-                                    {project.tags.map((tag) => (
-                                        <span
-                                            key={tag}
-                                            className="px-3 py-1 text-xs font-medium rounded-full"
-                                            style={{
-                                                backgroundColor: 'var(--color-background)',
-                                                color: 'var(--color-muted)'
-                                            }}
-                                        >
+                                <p className="text-zinc-400 text-sm mb-4 max-w-md">{project.desc}</p>
+                                <div className="flex gap-2">
+                                    {project.tags.map(tag => (
+                                        <span key={tag} className="text-xs px-2 py-1 rounded-md bg-white/10 text-zinc-300 border border-white/5">
                                             {tag}
                                         </span>
                                     ))}
                                 </div>
                             </div>
-                        </motion.article>
-                    ))}
-                </motion.div>
+                        </div>
+                    </motion.div>
+                ))}
             </div>
         </section>
     );
